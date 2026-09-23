@@ -1,0 +1,37 @@
+{
+  "name": "@family-adventure/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "LOCAL_DEMO_MODE=true NARRATIVE_PROVIDER=local tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@family-adventure/shared": "workspace:*",
+    "@google-cloud/storage": "^7.21.0",
+    "@google-cloud/tasks": "^6.2.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.6.0",
+    "firebase-admin": "^13.10.0",
+    "google-auth-library": "^10.9.0",
+    "helmet": "^8.3.0",
+    "nanoid": "^5.1.16",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.1.10",
+    "supertest": "^7.2.2",
+    "tsx": "^4.23.1",
+    "vitest": "^4.1.11"
+  }
+}

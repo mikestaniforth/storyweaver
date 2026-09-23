@@ -1,0 +1,33 @@
+{
+  "name": "storyweaver",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.14.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @family-adventure/shared build && concurrently -n api,web -c magenta,cyan \"pnpm --filter @family-adventure/api dev\" \"pnpm --filter @family-adventure/web dev\"",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm --filter @family-adventure/shared typecheck && pnpm --filter @family-adventure/shared build && pnpm --filter @family-adventure/api typecheck && pnpm --filter @family-adventure/web typecheck && pnpm --filter @family-adventure/firebase-rules typecheck",
+    "test": "pnpm --filter @family-adventure/shared build && pnpm -r test",
+    "test:coverage": "pnpm --filter @family-adventure/shared build && pnpm -r test:coverage",
+    "test:e2e": "pnpm --filter @family-adventure/web test:e2e",
+    "lint": "eslint . --max-warnings=0",
+    "format:check": "prettier --check .",
+    "emulators": "firebase emulators:start --import=.firebase-data --export-on-exit=.firebase-data"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.20.1",
+    "concurrently": "^9.2.4",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "firebase-tools": "^15.24.0",
+    "globals": "^16.5.0",
+    "prettier": "^3.9.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.64.0"
+  }
+}

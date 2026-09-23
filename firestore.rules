@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data;
+    }
+
+    function belongsToFamily(familyId) {
+      return signedIn() && profile().familyId == familyId;
+    }
+
+    // Profiles are readable only inside the signed-in player's family. The API is
+    // the sole writer, so a child can never promote itself or change familyId.
+    match /profiles/{profileId} {
+      allow read: if signedIn() && belongsToFamily(resource.data.familyId);
+      allow write: if false;
+    }
+
+    // This deliberately redacted projection excludes gmBible. Its listener is the
+    // only gameplay collection used directly by the browser.
+    match /campaignViews/{campaignId} {
+      allow read: if belongsToFamily(resource.data.familyId)
+                  && request.auth.uid in resource.data.playerOrder;
+      allow write: if false;
+    }
+
+    // Families contain code/PIN controls; campaigns contain GM secrets. All other
+    // records are server-only, including turns, memories, snapshots, feedback,
+    // templates, assets, action claims, and deletion work.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

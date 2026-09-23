@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "development": "your-family-adventure-dev",
+    "production": "your-family-adventure-prod"
+  }
+}

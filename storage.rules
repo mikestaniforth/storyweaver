@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Art and narration are delivered through short-lived signed URLs or the
+    // authenticated API. No browser can enumerate, upload, or overwrite assets.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

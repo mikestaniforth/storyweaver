@@ -1,0 +1,19 @@
+{
+  "name": "@family-adventure/firebase-rules",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Rules package has no build output'",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "firebase": "^12.16.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}
